@@ -35,7 +35,7 @@ export default class Game extends Phaser.Scene {
         let self = this;
 
         if (process.env.CLOUD === '') {
-            this.socket = io('http://ec2-3-126-55-4.eu-central-1.compute.amazonaws.com:3000');
+            this.socket = io('http://ec2-3-126-55-4.eu-central-1.compute.amazonaws.com');
         } else {
             this.socket = io('http://localhost:3000');
         }
