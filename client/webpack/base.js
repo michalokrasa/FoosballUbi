@@ -34,7 +34,10 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       CANVAS_RENDERER: JSON.stringify(true),
-      WEBGL_RENDERER: JSON.stringify(true)
+      WEBGL_RENDERER: JSON.stringify(true),
+      'process.env': {
+        CLOUD: JSON.stringify(process.env.CLOUD)
+      }
     }),
     new HtmlWebpackPlugin({
       template: "./index.html"
