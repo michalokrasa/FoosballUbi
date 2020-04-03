@@ -2,6 +2,10 @@ import io from 'socket.io-client';
 import Card from '../helpers/card';
 import Dealer from "../helpers/dealer";
 import Zone from '../helpers/zone';
+import cyanCardFront from '../assets/CyanCardFront.png'
+import cyanCardBack from '../assets/CyanCardBack.png'
+import magentaCardFront from '../assets/MagentaCardFront.png'
+import magentaCardBack from '../assets/MagentaCardBack.png'
 
 export default class Game extends Phaser.Scene {
     constructor() {
@@ -11,10 +15,10 @@ export default class Game extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('cyanCardFront', 'src/assets/CyanCardFront.png');
-        this.load.image('cyanCardBack', 'src/assets/CyanCardBack.png');
-        this.load.image('magentaCardFront', 'src/assets/magentaCardFront.png');
-        this.load.image('magentaCardBack', 'src/assets/magentaCardBack.png');
+        this.load.image('cyanCardFront', cyanCardFront);
+        this.load.image('cyanCardBack', cyanCardBack);
+        this.load.image('magentaCardFront', magentaCardFront);
+        this.load.image('magentaCardBack', magentaCardBack);
     }
 
     create() {

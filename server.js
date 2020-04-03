@@ -1,7 +1,14 @@
-const server = require('express')();
-const http = require('http').createServer(server);
-const io = require('socket.io')(http);
+const express = require('express');
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 let players = [];
+
+app.use(express.static(__dirname + '/public'));
+
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
 
 io.on('connection', function (socket) {
     console.log('A user connected: ' + socket.id);
@@ -26,6 +33,7 @@ io.on('connection', function (socket) {
     });
 });
 
-http.listen(3000, function () {
-    console.log('Server started!');
+
+server.listen(3000, function () {
+    console.log('Server started on port 3000!');
 });
