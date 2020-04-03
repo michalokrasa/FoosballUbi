@@ -7,6 +7,7 @@ import cyanCardBack from '../assets/CyanCardBack.png'
 import magentaCardFront from '../assets/MagentaCardFront.png'
 import magentaCardBack from '../assets/MagentaCardBack.png'
 
+
 export default class Game extends Phaser.Scene {
     constructor() {
         super({
@@ -33,7 +34,11 @@ export default class Game extends Phaser.Scene {
 
         let self = this;
 
-        this.socket = io('http://localhost:3000');
+        if (process.env.CLOUD) {
+            this.socket = io('http://ec2-3-126-55-4.eu-central-1.compute.amazonaws.com:3000');
+        } else {
+            this.socket = io('http://localhost:3000');
+        }
 
         this.socket.on('connect', function () {
             console.log('Connected!');
