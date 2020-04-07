@@ -1,13 +1,19 @@
 import Phaser from "phaser";
-import Game from "./scenes/game"
+import MainScreen from  "./scenes/mainScreen"
 
 const config = {
     type: Phaser.AUTO,
     parent: "phaser-example",
-    width: 1280,
-    height: 780,
+    width: 1920,
+    height: 1080,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: true
+        }
+    },
     scene: [
-        Game
+        MainScreen
     ]
 };
 
