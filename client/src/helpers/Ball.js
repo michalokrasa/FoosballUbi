@@ -4,18 +4,20 @@
     This class could extend Phaser.Physics.Arcade.Sprite class
 */
 
-export default class Ball {
-    constructor(scene, x, y) {
-        // Keeps track of sprite direction of rotation with respect to ball velocity direction 
-        this.initSpriteOrientationDeg = 270;  // Phaser.Math.DegToRad()
+export default class Ball extends Phaser.GameObjects.Sprite {
+    constructor(scene, x, y, texture) {
+        super(scene, x, y, texture);
 
-        // Ball physics object configuration
-        this.physicsObject = scene.physics.add.sprite(x, y, 'ball');
-        this.physicsObject.setCircle(32);
-        this.physicsObject.setBounce(1, 1);
-        this.physicsObject.setCollideWorldBounds(true);
-        this.physicsObject.body.onWorldBounds = true;
-        scene.physics.world.on('worldbounds', ()=> {
+        // Keeps track of sprite direction of rotation with respect to ball velocity direction 
+        //this.initSpriteOrientationDeg = 270;  // Phaser.Math.DegToRad()
+
+        // Enables physics for this body
+        scene.physics.world.enable(this);
+
+        // Ball physics params configuration
+        this.body.setCircle(32).setBounce(1, 1).setCollideWorldBounds(true);
+        this.body.onWorldBounds = true;
+        this.scene.physics.world.on('worldbounds', ()=> {
             // TODO: Create scoring logic
             console.log("GOAL!!!");
         })
@@ -29,17 +31,23 @@ export default class Ball {
         this.physicsBounds.add(scene.add.rectangle(0, 1080, 50, 310).setOrigin(0, 1));
         this.physicsBounds.add(scene.add.rectangle(0, 1080, 1920, 40).setOrigin(0, 1));
         this.physicsBounds.add(scene.add.rectangle(1920, 1080, 50, 310).setOrigin(1, 1));
-        scene.physics.add.collider(this.physicsObject, this.physicsBounds);
-
-        //this.physicsObject.body.setBoundsRectangle(new Phaser.Geom.Rectangle(50, 40, 1820, 1000));
-        //scene.add.graphics().lineStyle(5, 0x00ffff, 0.5).strokeRectShape(this.physicsObject.body.customBoundsRectangle);
+        this.scene.physics.add.collider(this, this.physicsBounds);
     }
 
     start(initXVel, initYVel) {
         // Sets initial velocity
-        this.physicsObject.setVelocity(initXVel, initYVel);
+        this.body.setVelocity(initXVel, initYVel);
         // Starts animation
-        this.physicsObject.anims.play("ballRoll");
+        this.anims.play("ballRoll");
     }
 
 }
+
+Phaser.GameObjects.GameObjectFactory.register('ball', function (x, y, texture) {
+    const ball = new Ball(this.scene, x, y, texture);
+
+    this.displayList.add(ball);
+    this.updateList.add(ball);
+
+    return ball;
+});

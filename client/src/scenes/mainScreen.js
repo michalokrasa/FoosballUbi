@@ -42,10 +42,10 @@ export default class MainScreen extends Phaser.Scene {
     create() {
         this.add.image(0, 0, 'field').setOrigin(0, 0);
 
-        this.ball = new Ball(this, 1920 / 2, 1080 / 2);
+        this.ball = this.add.ball(1920 / 2, 1080 / 2, 'ball'); 
 
         this.stickPositions.forEach(pos => {
-            this.add.image(pos, 0, 'stick').setOrigin(0.3, 0);
+           this.add.image(pos, 0, 'stick').setOrigin(0.3, 0);
         })
 
         this.add.image(0, 0, 'arena').setOrigin(0, 0);
@@ -72,6 +72,8 @@ export default class MainScreen extends Phaser.Scene {
         
 
         this.ball.start(100, -200);
+
+        console.log(this.sys.displayList);
     }
 
     update() {
