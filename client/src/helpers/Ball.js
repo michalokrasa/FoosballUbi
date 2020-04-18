@@ -13,7 +13,7 @@ export default class Ball extends Phaser.GameObjects.Sprite {
 
         // Enables physics for this body
         scene.physics.world.enable(this);
-
+        
         // Ball physics params configuration
         this.body.setCircle(32).setBounce(1, 1).setCollideWorldBounds(true);
         this.body.onWorldBounds = true;

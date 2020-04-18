@@ -7,7 +7,8 @@ import redPlayerSpr from "../assets/playerRed.png"
 import ballSpr from "../assets/ball.png"
 
 import Ball from "../helpers/Ball"
-
+import RedPlayer from "../helpers/RedPlayer"
+import BluePlayer from "../helpers/BluePlayer"
 
 export default class MainScreen extends Phaser.Scene {
     constructor() {
@@ -42,10 +43,18 @@ export default class MainScreen extends Phaser.Scene {
     create() {
         this.add.image(0, 0, 'field').setOrigin(0, 0);
 
-        this.ball = this.add.ball(1920 / 2, 1080 / 2, 'ball'); 
+        this.ball = this.add.ball(1920 / 2, 1080 / 2, 'ball');
 
         this.stickPositions.forEach(pos => {
            this.add.image(pos, 0, 'stick').setOrigin(0.3, 0);
+        })
+
+        this.stickPositions.forEach(pos => {
+            this.add.existing(new RedPlayer(this, pos, 200, 'redPlayer'));
+        })
+
+        this.stickPositions.forEach(pos => {
+            this.add.existing(new BluePlayer(this, pos, 400, 'bluePlayer'));
         })
 
         this.add.image(0, 0, 'arena').setOrigin(0, 0);
